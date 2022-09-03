@@ -1,0 +1,7 @@
+.btn {        
+	background: #3598dc;
+    border: none;
+}
+.btn:hover, .btn:focus {
+	background: #2389cd !important;
+}
