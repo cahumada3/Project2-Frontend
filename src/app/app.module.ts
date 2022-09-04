@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PublicClientApplication } from '@azure/msal-browser';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -23,8 +25,8 @@ import { PublicClientApplication } from '@azure/msal-browser';
       auth: {
         clientId:"e02f8023-5e22-43fa-a50c-f89a0ed37f5d",
         authority: "https://login.microsoftonline.com/common/",
-        redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
-        postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        redirectUri: "http://localhost:4200",
+        postLogoutRedirectUri: "http://localhost:4200",
         navigateToLoginRequestUrl: true,
       },
       cache: {

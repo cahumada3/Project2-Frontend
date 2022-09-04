@@ -15,6 +15,7 @@
 
     <div class="col-md-3 text-end">
       <button *ngIf="!loginDisplay" type="button" class="btn btn-primary me-2" (click)="login()">Login</button>
+      <button *ngIf="loginDisplay" type="button" class="btn btn-primary me-2" routerLink="account">View Account</button>
       <button *ngIf="loginDisplay" type="button" class="btn btn-primary" (click)="logout()">Logout</button>
     </div>
   </header>
