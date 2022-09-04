@@ -25,8 +25,8 @@ export const msalConfig: Configuration = {
     auth: {
         clientId:"12b471b2-cdab-402d-9eb9-30ccdef11f36",
         authority: b2cPolicies.authorities.signUpSignIn.authority,
-        redirectUri: "http://localhost:4200/",
-        postLogoutRedirectUri: "http://localhost:4200/",
+        redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
         navigateToLoginRequestUrl: false,
         validateAuthority: true,
     },
@@ -59,13 +59,13 @@ export const msalAngularConfig: {} = {
     extraQueryParameters: {}
 }
 
-export const guardConfig: MsalGuardConfiguration = {
-    interactionType: InteractionType.Redirect
-}
+// export const guardConfig: MsalGuardConfiguration = {
+//     interactionType: InteractionType.Redirect
+// }
 
-export const interceptConfig: MsalInterceptorConfiguration = {
-    interactionType: InteractionType.Redirect,
-    protectedResourceMap: new Map([
-        ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-    ])
-}
+// export const interceptConfig: MsalInterceptorConfiguration = {
+//     interactionType: InteractionType.Redirect,
+//     protectedResourceMap: new Map([
+//         ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+//     ])
+// }
