@@ -14,8 +14,8 @@
     </ul>
 
     <div class="col-md-3 text-end">
-      <a routerLink="users/login" class="btn btn-primary me-2">Login</a>
-      <a routerLink="users/register" class="btn btn-primary">Sign Up</a>
+      <button *ngIf="!loggedIn" type="button" class="btn btn-primary me-2" (click)="login()">Login</button>
+      <button *ngIf="!loggedIn" type="button" class="btn btn-primary" (click)="logout()">Logout</button>
     </div>
   </header>
 

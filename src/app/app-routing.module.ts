@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './users/register/register.component';
-import { LoginComponent } from './users/login/login.component';
+import { MsalGuard } from '@azure/msal-angular'
+
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
-  //{ path: '', redirectTo: 'users', pathMatch: 'full'},
-  { path: 'users/register', component: RegisterComponent},
-  { path: 'users/login', component: LoginComponent},
+  { path: '', component: HomeComponent, canActivate: [MsalGuard]}
 ];
 
 @NgModule({
