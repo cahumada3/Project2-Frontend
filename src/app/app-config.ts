@@ -25,8 +25,8 @@ export const msalConfig: Configuration = {
     auth: {
         clientId:"12b471b2-cdab-402d-9eb9-30ccdef11f36",
         authority: b2cPolicies.authorities.signUpSignIn.authority,
-        redirectUri: "https://TeleComApp.telecomb2c.co",
-        postLogoutRedirectUri: "https://TeleComApp.telecomb2c.co",
+        redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
         navigateToLoginRequestUrl: true,
         validateAuthority: true,
     },
