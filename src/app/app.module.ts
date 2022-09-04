@@ -21,7 +21,7 @@ import { PublicClientApplication } from '@azure/msal-browser';
     AppRoutingModule,
     MsalModule.forRoot(new PublicClientApplication({
       auth: {
-        clientId:"12b471b2-cdab-402d-9eb9-30ccdef11f36",
+        clientId:"e02f8023-5e22-43fa-a50c-f89a0ed37f5d",
         authority: "https://login.microsoftonline.com/common/",
         redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
         postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
