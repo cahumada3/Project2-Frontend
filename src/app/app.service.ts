@@ -96,8 +96,8 @@ export class AppService {
     return this.http.get<User>(`${this.UserURL}/${id}`, this.httpOptions);
   }
 
-  getUserByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.PlanURL}/email/${email}`, this.httpOptions);
+  getUserByEmail(email?: string): Observable<User> {
+    return this.http.get<User>(`${this.UserURL}/email/${email}`, this.httpOptions);
   }
 
   createUser(user: User): Observable<User> {

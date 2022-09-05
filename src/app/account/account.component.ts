@@ -20,7 +20,7 @@ type ProfileType = {
 })
 export class AccountComponent implements OnInit {
   profile!: ProfileType;
-  users: User = {} as User;
+  user: User = {} as User;
 
   constructor(
     private appService: AppService,
@@ -29,8 +29,13 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.getProfile();
-    const email = this.profile.userPrincipalName;
-    console.log(this.appService.getUserByEmail(this.profile.userPrincipalName!).subscribe(user => this.users = user));
+    // console.log(this.profile.userPrincipalName);
+    const email: string = this.profile.userPrincipalName as string;
+    this.getUser(email);
+  }
+
+  getUser(email?: string) {
+    this.appService.getUserByEmail(email).subscribe(user => this.user = user);
   }
 
   getProfile() {
