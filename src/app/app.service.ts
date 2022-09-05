@@ -15,6 +15,7 @@ export class AppService {
   private PlanURL = 'https://telecom-app.azurewebsites.net/api/Plans';
   private currPlanId!: number;
   private currDeviceId!: number;
+  private currUserID!: number;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -79,12 +80,24 @@ export class AppService {
     return this.http.delete<Device>(`${this.DeviceURL}/${id}`, this.httpOptions);
   }
 
+  updateCurrUserId(id: number) {
+    this.currUserID = id;
+  }
+
+  getCurrUserId() {
+    return this.currUserID;
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.UserURL, this.httpOptions);
   }
 
   getUser(id: number): Observable<User> {
     return this.http.get<User>(`${this.UserURL}/${id}`, this.httpOptions);
+  }
+
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${this.PlanURL}/email/${email}`, this.httpOptions);
   }
 
   createUser(user: User): Observable<User> {

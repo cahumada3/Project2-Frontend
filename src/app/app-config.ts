@@ -25,8 +25,10 @@ export const msalConfig: Configuration = {
     auth: {
         clientId:"12b471b2-cdab-402d-9eb9-30ccdef11f36",
         authority: b2cPolicies.authorities.signUpSignIn.authority,
-        redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
-        postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        // redirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        // postLogoutRedirectUri: "https://calm-beach-035463210.1.azurestaticapps.net/",
+        redirectUri: "http://localhost:4200",
+        postLogoutRedirectUri: "http://localhost:4200",
         navigateToLoginRequestUrl: false,
         validateAuthority: true,
     },
