@@ -5,10 +5,12 @@ import { MsalGuard } from '@azure/msal-angular'
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { AddDeviceComponent } from './account/add-device/add-device.component';
+import { PlansComponent } from './plans/plans.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [MsalGuard]},
   { path: 'account', component: AccountComponent, canActivate: [MsalGuard]},
+  { path: 'plans', component: PlansComponent, canActivate: [MsalGuard]},
   { path: 'account/addDevice', component: AddDeviceComponent}
 ];
 

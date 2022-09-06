@@ -1,121 +1,148 @@
-<h1>My Account</h1>
-<div >
-    <p><strong>First Name: </strong> {{profile?.givenName}}</p>
+<h1 class="display-5 fw-normal text-center">Account Details</h1>
+<br>
+<div class="display-7 fw-normal text-center">
+    <p><strong>First Name:</strong> {{profile?.givenName}}</p>
     <p><strong>Last Name: </strong> {{profile?.surname}}</p>
     <p><strong>Email: </strong> {{profile?.userPrincipalName}}</p>
 </div>
 
-<div>
-    <button (click)="routeToDevice(user.userId)">Add a Device</button>
-    <button (click)="routeToFamilyPlan(user.userId)">Add a Family Plan</button>
-    <button (click)="routeToWorkPlan(user.userId)">Add a Work Plan</button>
-    <button (click)="routeToEnterprisePlan(user.userId)">Add a Enterprise Plan</button>
-
-    <!-- <p>{{user.userId}}</p>
-    <p>{{user.firstName}}</p>
-    <p>{{user.lastName}}</p>
-    <p>{{user.email}}</p> -->
+<hr>
+<br><br>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-8">
+            <h2>Devices</h2>
+        </div>
+        <div class="col-4">
+            <button (click)="routeToDevice(user.userId)" class="btn btn-lg">Add New Device</button>
+        </div>
+    </div>
+    <hr>
+    <div>       
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>PhoneNumber</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let device of user.devices">
+                    <th>{{ device.model }}</th>
+                    <th>{{ device.phoneNumber }}</th>
+                    <th>{{ device.isActive }}</th>
+                    <th>
+                        <button type="button" class="btn btn-outline-danger" (click)="deleteDevice(user.userId, device.deviceId)">Remove Device</button>                    
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Model</th>
-            <th>PhoneNumber</th>
-            <th>Active</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let device of user.devices">
-            <th>{{ device.model }}</th>
-            <th>{{ device.phoneNumber }}</th>
-            <th>{{ device.isActive }}</th>
-            <th>
-                <button type="button" class="btn btn-danger" (click)="deleteDevice(user.userId, device.deviceId)">Remove Device</button>
-            </th>
-        </tr>
-    </tbody>
-</table>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Number of Lines</th>
-            <th>Active Lines</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let plan of user.plans">
-            <ng-container *ngIf="plan.type== '0'">
-                <th>Family</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '1'">
-                <th>Work</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '2'">
-                <th>Enterprise</th>
-            </ng-container>
-            <th>{{ plan.phoneLines }}</th>
-            <th>{{ plan.numberLines }}</th>
-            <th>
-                <ng-container *ngIf="plan.numberLines == 0">
-                    <button type="button" class="btn btn-danger" (click)="deletePlan(user.userId, plan.planId)">Remove Plan</button>
+<hr>
+<br><br>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-4">
+            <h2>Plans</h2>
+        </div>
+        <div class="col-8">
+            <button (click)="routeToFamilyPlan(user.userId)" class="btn btn-lg me-2">Add Family Plan</button>
+            <button (click)="routeToWorkPlan(user.userId)" class="btn btn-lg me-2">Add Work Plan</button>       
+            <button (click)="routeToEnterprisePlan(user.userId)" class="btn btn-lg">Add Enterprise Plan</button>
+        </div>        
+    </div>
+    <hr>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Number of Lines</th>
+                <th>Active Lines</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plan of user.plans">
+                <ng-container *ngIf="plan.type== '0'">
+                    <th>Family</th>
                 </ng-container>
-                <ng-container *ngIf="plan.numberLines != plan.phoneLines">
-                    <button type="button" class="btn btn-warning" (click)="addDevice(plan.planId)">Add Device</button>
+                <ng-container *ngIf="plan.type== '1'">
+                    <th>Work</th>
                 </ng-container>
-                <button type="button" class="btn btn-danger" (click)="removeDeivce(plan.planId)">Remove Device</button>
-            </th>
-        </tr>
-    </tbody>
-</table>
+                <ng-container *ngIf="plan.type== '2'">
+                    <th>Enterprise</th>
+                </ng-container>
+                <th>{{ plan.phoneLines }}</th>
+                <th>{{ plan.numberLines }}</th>
+                <th>
+                    <ng-container *ngIf="plan.numberLines == 0">
+                        <button type="button" class="btn btn-danger me-2" (click)="deletePlan(user.userId, plan.planId)">Remove Plan</button>
+                    </ng-container>
+                    <ng-container *ngIf="plan.numberLines != plan.phoneLines">
+                        <button type="button" class="btn btn-outline-success me-2" (click)="addDevice(plan.planId)">Add Device</button>
+                    </ng-container>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeDeivce(plan.planId)">Remove Device</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+<br><br>
+<div class="container">
+    <h2>Billing</h2>
+    <hr>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Number of Lines</th>
+                <th>Active Lines</th>
+                <th>Plan Cost</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plan of user.plans">
+                <ng-container *ngIf="plan.type== '0'">
+                    <th>Family</th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '1'">
+                    <th>Work</th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '2'">
+                    <th>Enterprise</th>
+                </ng-container> 
+                <th>{{ plan.phoneLines }}</th>
+                <th>{{ plan.numberLines }}</th>
+                <ng-container *ngIf="plan.type== '0'">
+                    <th>$25 + $20 per line</th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '1'">
+                    <th>$75 + $10 per line</th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '2'">
+                    <th>$125 + $5 per line</th>
+                </ng-container> 
+                <ng-container *ngIf="plan.type== '0'">
+                    <th>${{ plan.numberLines * 20 + 25}}.00 </th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '1'">
+                    <th>${{ plan.numberLines * 10 + 75}}.00 </th>
+                </ng-container>
+                <ng-container *ngIf="plan.type== '2'">
+                    <th>${{ plan.numberLines * 5 + 125}}.00 </th>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h5 class="text-center">Total Bill: ${{totalBill}}.00</h5>
+</div>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Number of Lines</th>
-            <th>Active Lines</th>
-            <th>Plan Cost</th>
-            <th>Bill: ${{totalBill}}.00</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let plan of user.plans">
-            <ng-container *ngIf="plan.type== '0'">
-                <th>Family</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '1'">
-                <th>Work</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '2'">
-                <th>Enterprise</th>
-            </ng-container> 
-            <th>{{ plan.phoneLines }}</th>
-            <th>{{ plan.numberLines }}</th>
-            <ng-container *ngIf="plan.type== '0'">
-                <th>$25 + $20 per line</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '1'">
-                <th>$75 + $10 per line</th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '2'">
-                <th>$125 + $5 per line</th>
-            </ng-container> 
-            <ng-container *ngIf="plan.type== '0'">
-                <th>${{ plan.numberLines * 20 + 25}}.00 </th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '1'">
-                <th>${{ plan.numberLines * 10 + 75}}.00 </th>
-            </ng-container>
-            <ng-container *ngIf="plan.type== '2'">
-                <th>${{ plan.numberLines * 5 + 125}}.00 </th>
-            </ng-container>
-        </tr>
-    </tbody>
-</table>
 <div *ngIf="displayDevices">
     <div class="container">
         <table class="table table-bordered table-striped">
@@ -129,7 +156,7 @@
                     <tr *ngIf="!device.isActive">
                         <th>{{device.model}}</th>
                         <th>
-                            <button type="button" class="btn btn-info" (click)="addDeviceToPlan(device)">Add</button>
+                            <button type="button" class="btn btn-outline-success" (click)="addDeviceToPlan(device)">Add</button>
                         </th>
                     </tr>
                 </ng-container>
@@ -150,7 +177,7 @@
                     <tr *ngIf="device.isActive && device.planId == planId">
                         <th>{{device.model}}</th>
                         <th>
-                            <button type="button" class="btn btn-danger" (click)="removeDeviceFromPlan(device)">Remove</button>
+                            <button type="button" class="btn btn-outline-danger" (click)="removeDeviceFromPlan(device)">Remove</button>
                         </th>
                     </tr>
                 </ng-container>

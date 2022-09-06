@@ -13,12 +13,14 @@ import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddDeviceComponent } from './plan/add-device/add-device.component';
 import { AccountModule } from './account/account.module';
+import { PlansComponent } from './plans/plans.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    PlansComponent,
   ],
   imports: [
     BrowserModule,
