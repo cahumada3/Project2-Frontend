@@ -12,13 +12,13 @@ import { PublicClientApplication, InteractionType } from '@azure/msal-browser';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddDeviceComponent } from './plan/add-device/add-device.component';
+import { AccountModule } from './account/account.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,8 @@ import { AddDeviceComponent } from './plan/add-device/add-device.component';
       protectedResourceMap: new Map([ 
           ['https://graph.microsoft.com/v1.0/me', ['user.read']]
       ])
-    })      
+    }),
+    AccountModule      
   ],
   providers: [
     {

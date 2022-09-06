@@ -6,7 +6,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let device of user.devices">
+            <tr *ngFor="let device of devices">
                 <th>{{device.model}}</th>
                 <th>
                     <button type="button" class="btn btn-info" (click)="addDevice(device)">Add</button>

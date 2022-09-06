@@ -7,7 +7,7 @@ import { AddDeviceComponent } from './add-device/add-device.component';
 
 @NgModule({
   declarations: [
-  
+    AccountComponent,
     AddDeviceComponent
   ],
   imports: [

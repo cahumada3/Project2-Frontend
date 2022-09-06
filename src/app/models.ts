@@ -31,6 +31,7 @@ export interface Device {
     deviceId: number;
     model: string;
     phoneNumber: number;
+    isActive: boolean;
     userId: number;
     planId: number;
 }
