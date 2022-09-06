@@ -14,10 +14,11 @@ export interface UserDTO {
 }
 
 export interface Plan {
-    id: number;
+    planId: number;
+    type: string;
     phoneLines: number;
     numberLines: number;
-    userdId: number;
+    userId: number;
 }
 
 export interface PlanDTO {
@@ -27,7 +28,7 @@ export interface PlanDTO {
 }
 
 export interface Device {
-    id: number;
+    deviceId: number;
     model: string;
     phoneNumber: number;
     userId: number;

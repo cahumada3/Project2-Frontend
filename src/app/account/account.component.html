@@ -11,9 +11,54 @@
 
 <div *ngIf="!isValid">
     <button (click)="routeToDevice(user.userId)">Add a Device</button>
-    <button (click)="routeToPlan(user.userId)">Add a Plan</button>
-    <p>{{user.userId}}</p>
+    <button (click)="routeToFamilyPlan(user.userId)">Add a Family Plan</button>
+    <button (click)="routeToWorkPlan(user.userId)">Add a Work Plan</button>
+    <button (click)="routeToEnterprisePlan(user.userId)">Add a Enterprise Plan</button>
+
+    <!-- <p>{{user.userId}}</p>
     <p>{{user.firstName}}</p>
     <p>{{user.lastName}}</p>
-    <p>{{user.email}}</p>
+    <p>{{user.email}}</p> -->
 </div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>PhoneNumber</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let device of user.devices">
+            <th>{{ device.model }}</th>
+            <th>{{ device.phoneNumber }}</th>
+            <th>
+                <button type="button" class="btn btn-danger" (click)="deleteDevice(device.deviceId)">Remove Device</button>
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Number of Lines</th>
+            <th>Active Lines</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let plan of user.plans">
+            <th>{{ plan.type }}</th>
+            <th>{{ plan.phoneLines }}</th>
+            <th>{{ plan.numberLines }}</th>
+            <th>
+                <button type="button" class="btn btn-danger" (click)="deletePlan(plan.planId)">Remove Plan</button>
+                <ng-container *ngIf="plan.numberLines != plan.phoneLines">
+                    <button type="button" class="btn btn-warning" (click)="addDevice(user.userId, plan.planId)">Add Device</button>
+                </ng-container>
+            </th>
+        </tr>
+    </tbody>
+</table>

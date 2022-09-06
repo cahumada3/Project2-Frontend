@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models'
+import { Device, Plan, User } from '../models'
 import { AppService } from '../app.service';
 import { filter, tap, catchError, of, Observable } from 'rxjs';
 import { UserAgentApplication } from 'msal';
 import { Router } from '@angular/router';
+import { observable } from 'rxjs';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 
@@ -65,14 +66,40 @@ export class AccountComponent implements OnInit {
 
   routeToDevice(id: number) {
     this.appService.updateCurrUserId(id);
-    console.log(id);
-    console.log(this.appService.getCurrUserId());
-    this.router.navigateByUrl('/device/create');
+    this.appService.createDevice({"model": "Phone", "userId": id} as Device).subscribe();
+    this.router.navigateByUrl('/account');
   }
 
-  routeToPlan(id: number) {
-    // this.appService.updateCurrUserId(id);
-    // this.router.navigateByUrl('/plan/create');
+  deleteDevice(id: number) {
+    this.appService.deleteDevice(id).subscribe();
   }
 
+  routeToFamilyPlan(id: number) {
+    this.appService.updateCurrUserId(id);
+    this.appService.createPlan({"type": "Family", "phoneLines": 5, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.router.navigateByUrl('/account');
+  }
+
+  routeToWorkPlan(id: number) {
+    this.appService.updateCurrUserId(id);
+    this.appService.createPlan({"type": "Work", "phoneLines": 20, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.router.navigateByUrl('/account');
+  }
+
+  routeToEnterprisePlan(id: number) {
+    this.appService.updateCurrUserId(id);
+    this.appService.createPlan({"type": "Enterprise", "phoneLines": 75, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.router.navigateByUrl('/account');
+  }
+
+  deletePlan(id: number) {
+    this.appService.deletePlan(id).subscribe();
+  }
+
+  addDevice(userId: number, planId:number) 
+  {
+    this.appService.updateCurrPlanId(planId);
+    this.appService.updateCurrUserId(userId);
+    this.router.navigateByUrl('/account/addDevice');
+  }
 }

@@ -4,13 +4,12 @@ import { MsalGuard } from '@azure/msal-angular'
 
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
-import { DeviceCreateComponent } from './device/device-create/device-create.component';
-import { DeviceEditComponent } from './device/device-edit/device-edit.component';
+import { AddDeviceComponent } from './account/add-device/add-device.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [MsalGuard]},
   { path: 'account', component: AccountComponent, canActivate: [MsalGuard]},
-  { path: 'device/create', component: DeviceCreateComponent }
+  { path: 'account/addDevice', component: AddDeviceComponent}
 ];
 
 @NgModule({

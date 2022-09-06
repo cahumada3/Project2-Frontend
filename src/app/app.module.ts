@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { PublicClientApplication, InteractionType } from '@azure/msal-browser';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { AddDeviceComponent } from './plan/add-device/add-device.component';
 
 
 @NgModule({
