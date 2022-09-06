@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { from, Observable, throwError } from 'rxjs';
+import { from, Observable, tap, throwError } from 'rxjs';
 import { catchError, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -16,6 +16,7 @@ export class AppService {
   private currPlanId!: number;
   private currDeviceId!: number;
   private currUserID!: number;
+  private currUserEmail!: string;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -96,8 +97,12 @@ export class AppService {
     return this.http.get<User>(`${this.UserURL}/${id}`, this.httpOptions);
   }
 
-  getUserByEmail(email?: string): Observable<User> {
+  getUserByEmail(email: string): Observable<User> {
     return this.http.get<User>(`${this.UserURL}/email/${email}`, this.httpOptions);
+  }
+
+  checkUserExists(email:string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.UserURL}/exsits/${email}`, this.httpOptions);
   }
 
   createUser(user: User): Observable<User> {
@@ -110,6 +115,14 @@ export class AppService {
 
   deleteUser(id: number): Observable<User> {
     return this.http.delete<User>(`${this.UserURL}/${id}`, this.httpOptions);
+  }
+
+  updateCurrUserEmail(email: string) {
+    this.currUserEmail = email;
+  }
+
+  getCurrUserEmail(): string {
+    return this.currUserEmail;
   }
 
 }

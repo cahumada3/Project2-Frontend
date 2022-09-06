@@ -10,18 +10,22 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PublicClientApplication, InteractionType } from '@azure/msal-browser';
 import { AccountComponent } from './account/account.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     MsalModule.forRoot(new PublicClientApplication({
       auth: {
         clientId:"e02f8023-5e22-43fa-a50c-f89a0ed37f5d",

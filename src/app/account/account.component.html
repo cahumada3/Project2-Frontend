@@ -1,8 +1,19 @@
 <h1>My Account</h1>
-<div>
+<div >
+    <div *ngIf="isValid">
+        <button (click) ="checkUser(profile?.userPrincipalName)">Click First</button>
+        <button (click)= "getUser(profile?.userPrincipalName, profile?.givenName, profile?.surname, exists)">Get Account Details</button>    
+    </div>
     <p><strong>First Name: </strong> {{profile?.givenName}}</p>
     <p><strong>Last Name: </strong> {{profile?.surname}}</p>
     <p><strong>Email: </strong> {{profile?.userPrincipalName}}</p>
-    <p><strong>Id: </strong> {{profile?.id}}</p>
-    <p><strong>User Test:</strong> {{user.firstName}}</p>
+</div>
+
+<div *ngIf="!isValid">
+    <button (click)="routeToDevice(user.userId)">Add a Device</button>
+    <button (click)="routeToPlan(user.userId)">Add a Plan</button>
+    <p>{{user.userId}}</p>
+    <p>{{user.firstName}}</p>
+    <p>{{user.lastName}}</p>
+    <p>{{user.email}}</p>
 </div>
