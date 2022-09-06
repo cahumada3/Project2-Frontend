@@ -22,6 +22,7 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Device ID</th>
                     <th>Model</th>
                     <th>PhoneNumber</th>
                     <th>Active</th>
@@ -30,6 +31,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let device of user.devices">
+                    <th>{{ device.deviceId }}</th>
                     <th>{{ device.model }}</th>
                     <th>{{ device.phoneNumber }}</th>
                     <th>{{ device.isActive }}</th>
@@ -145,15 +147,19 @@
 
 <div *ngIf="displayDevices">
     <div class="container">
+        <h2>Add Device</h2>
+        <hr>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Device ID</th>
                     <th>Model</th>
                 </tr>
             </thead>
             <tbody> 
                 <ng-container *ngFor="let device of user.devices">
                     <tr *ngIf="!device.isActive">
+                        <th>{{device.deviceId}}</th>
                         <th>{{device.model}}</th>
                         <th>
                             <button type="button" class="btn btn-outline-success" (click)="addDeviceToPlan(device)">Add</button>
@@ -166,15 +172,19 @@
 </div>
 <div *ngIf="removeDevices">
     <div class="container">
+        <h2>Remove Device</h2>
+        <hr>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Device ID</th>
                     <th>Model</th>
                 </tr>
             </thead>
             <tbody>
                 <ng-container *ngFor="let device of user.devices">
                     <tr *ngIf="device.isActive && device.planId == planId">
+                        <th>{{device.deviceId}}</th>
                         <th>{{device.model}}</th>
                         <th>
                             <button type="button" class="btn btn-outline-danger" (click)="removeDeviceFromPlan(device)">Remove</button>
