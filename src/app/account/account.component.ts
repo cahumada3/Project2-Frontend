@@ -5,7 +5,6 @@ import { AppService } from '../app.service';
 import { filter, tap, catchError, of, Observable, ConnectableObservable } from 'rxjs';
 import { UserAgentApplication } from 'msal';
 import { Router } from '@angular/router';
-import { AddDeviceComponent } from '../plan/add-device/add-device.component';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 
