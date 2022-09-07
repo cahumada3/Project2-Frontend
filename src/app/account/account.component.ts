@@ -38,30 +38,6 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshPage();
-    // this.getProfile().subscribe(
-    //   profile => { 
-    //     this.profile = profile;
-    //     this.appService.checkUserExists(profile.userPrincipalName).subscribe(e => { 
-    //       this.exists = e;
-    //       if (this.exists == false) {
-    //         var userTemp = {"firstName": profile.givenName, "lastName": profile.surname, "email": profile.userPrincipalName} as User;
-    //         this.appService.createUser(userTemp).subscribe(); 
-    //       }
-    //       this.appService.getUserByEmail(profile.userPrincipalName).subscribe(u => { 
-    //         this.user = u;
-    //         for (var plan of this.user.plans)  {
-    //           console.log(plan.type);
-    //           if (plan.type == "0")
-    //             this.totalBill += 25 + (plan.numberLines * 20);
-    //           if (plan.type == "1")
-    //             this.totalBill += 75 + (plan.numberLines * 10);
-    //           if (plan.type == "2")
-    //             this.totalBill += 125 + (plan.numberLines * 5);
-    //           console.log(this.totalBill);
-    //         }
-    //       });
-    //     }) 
-    //   });
   }
 
   getProfile(): Observable<ProfileType> {
@@ -81,14 +57,13 @@ export class AccountComponent implements OnInit {
           this.appService.getUserByEmail(profile.userPrincipalName).subscribe(u => { 
             this.user = u;
             for (var plan of this.user.plans)  {
-              console.log(plan.type);
+              this.totalBill == 0;
               if (plan.type == "0")
                 this.totalBill += 25 + (plan.numberLines * 20);
               if (plan.type == "1")
                 this.totalBill += 75 + (plan.numberLines * 10);
               if (plan.type == "2")
                 this.totalBill += 125 + (plan.numberLines * 5);
-              console.log(this.totalBill);
             }
           });
         })
@@ -150,9 +125,6 @@ export class AccountComponent implements OnInit {
     var pNum = this.user.userId.toString() + this.appService.getCurrPlanId().toString() + device.deviceId.toString(); //TODO make proper 10 digit phone number
     while (pNum.length < 9) 
       pNum = pNum + "0";
-    console.log(pNum);
-    console.log(typeof(pNum));
-    console.log(typeof(Number(pNum)));
     this.appService.updateDevice(device.deviceId, { "model": device.model, "phoneNumber": Number(pNum), "userId": device.userId , "planId": this.appService.getCurrPlanId()} as Device).subscribe();
     this.refreshPage();
     this.displayDevices = false;
