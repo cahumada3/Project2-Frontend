@@ -37,8 +37,40 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.refreshPage();
+    // this.getProfile().subscribe(
+    //   profile => { 
+    //     this.profile = profile;
+    //     this.appService.checkUserExists(profile.userPrincipalName).subscribe(e => { 
+    //       this.exists = e;
+    //       if (this.exists == false) {
+    //         var userTemp = {"firstName": profile.givenName, "lastName": profile.surname, "email": profile.userPrincipalName} as User;
+    //         this.appService.createUser(userTemp).subscribe(); 
+    //       }
+    //       this.appService.getUserByEmail(profile.userPrincipalName).subscribe(u => { 
+    //         this.user = u;
+    //         for (var plan of this.user.plans)  {
+    //           console.log(plan.type);
+    //           if (plan.type == "0")
+    //             this.totalBill += 25 + (plan.numberLines * 20);
+    //           if (plan.type == "1")
+    //             this.totalBill += 75 + (plan.numberLines * 10);
+    //           if (plan.type == "2")
+    //             this.totalBill += 125 + (plan.numberLines * 5);
+    //           console.log(this.totalBill);
+    //         }
+    //       });
+    //     }) 
+    //   });
+  }
+
+  getProfile(): Observable<ProfileType> {
+    return this.http.get(GRAPH_ENDPOINT);
+  }
+
+  refreshPage() {
     this.getProfile().subscribe(
-      profile => { 
+      profile => {
         this.profile = profile;
         this.appService.checkUserExists(profile.userPrincipalName).subscribe(e => { 
           this.exists = e;
@@ -59,55 +91,46 @@ export class AccountComponent implements OnInit {
               console.log(this.totalBill);
             }
           });
-        }) 
-      });
-    console.log(this.exists);
-    if (this.appService.getCurrUserId() != undefined)
-    {
-      this.isValid = false;
-      this.appService.getUser(this.appService.getCurrUserId()).subscribe(u => this.user = u);
-    }
-  }
-
-  getProfile(): Observable<ProfileType> {
-    return this.http.get(GRAPH_ENDPOINT);
+        })
+      }
+    )
   }
 
   routeToDevice(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createDevice({"model": "Phone", "userId": id} as Device).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   deleteDevice(uId: number, id: number) {
     this.appService.updateCurrUserId(uId);
     this.appService.deleteDevice(id).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   routeToFamilyPlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "Family", "phoneLines": 5, "numberLines": 0, "userId": id } as Plan).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   routeToWorkPlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "work", "phoneLines": 20, "numberLines": 0, "userId": id } as Plan).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   routeToEnterprisePlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "enterprise", "phoneLines": 75, "numberLines": 0, "userId": id } as Plan).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   deletePlan(uId: number, id: number) {
     console.log("here to delete plan");
     this.appService.updateCurrPlanId(uId);
     this.appService.deletePlan(id).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
   }
 
   addDevice(planId:number) {
@@ -131,11 +154,13 @@ export class AccountComponent implements OnInit {
     console.log(typeof(pNum));
     console.log(typeof(Number(pNum)));
     this.appService.updateDevice(device.deviceId, { "model": device.model, "phoneNumber": Number(pNum), "userId": device.userId , "planId": this.appService.getCurrPlanId()} as Device).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
+    this.displayDevices = false;
   }
 
   removeDeviceFromPlan(device: Device) {
     this.appService.updateDevice(device.deviceId, { "model": device.model, "phoneNumber": 0, "userId": device.userId , "planId": null} as Device).subscribe();
-    this.router.navigateByUrl('/');
+    this.refreshPage();
+    this.removeDevices = false;
   }
 }
