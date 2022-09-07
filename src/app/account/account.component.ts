@@ -57,7 +57,6 @@ export class AccountComponent implements OnInit {
           this.appService.getUserByEmail(profile.userPrincipalName).subscribe(u => { 
             this.user = u;
             for (var plan of this.user.plans)  {
-              this.totalBill == 0;
               if (plan.type == "0")
                 this.totalBill += 25 + (plan.numberLines * 20);
               if (plan.type == "1")
@@ -74,30 +73,35 @@ export class AccountComponent implements OnInit {
   routeToDevice(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createDevice({"model": "Phone", "userId": id} as Device).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
   deleteDevice(uId: number, id: number) {
     this.appService.updateCurrUserId(uId);
     this.appService.deleteDevice(id).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
   routeToFamilyPlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "Family", "phoneLines": 5, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
   routeToWorkPlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "work", "phoneLines": 20, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
   routeToEnterprisePlan(id: number) {
     this.appService.updateCurrUserId(id);
     this.appService.createPlan({"type": "enterprise", "phoneLines": 75, "numberLines": 0, "userId": id } as Plan).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
@@ -105,6 +109,7 @@ export class AccountComponent implements OnInit {
     console.log("here to delete plan");
     this.appService.updateCurrPlanId(uId);
     this.appService.deletePlan(id).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
   }
 
@@ -126,12 +131,14 @@ export class AccountComponent implements OnInit {
     while (pNum.length < 9) 
       pNum = pNum + "0";
     this.appService.updateDevice(device.deviceId, { "model": device.model, "phoneNumber": Number(pNum), "userId": device.userId , "planId": this.appService.getCurrPlanId()} as Device).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
     this.displayDevices = false;
   }
 
   removeDeviceFromPlan(device: Device) {
     this.appService.updateDevice(device.deviceId, { "model": device.model, "phoneNumber": 0, "userId": device.userId , "planId": null} as Device).subscribe();
+    this.totalBill = 0;
     this.refreshPage();
     this.removeDevices = false;
   }
