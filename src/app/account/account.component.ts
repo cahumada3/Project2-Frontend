@@ -57,7 +57,7 @@ export class AccountComponent implements OnInit {
           this.appService.getUserByEmail(profile.userPrincipalName).subscribe(u => { 
             this.user = u;
             for (var plan of this.user.plans)  {
-              this.totalBill == 0;
+              this.totalBill = 0;
               if (plan.type == "0")
                 this.totalBill += 25 + (plan.numberLines * 20);
               if (plan.type == "1")
